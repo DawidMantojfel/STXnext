@@ -25,30 +25,6 @@ Na podstawie danych znajdującej się na stronie https://www.googleapis.com/book
 ściągnąć data set z https://www.googleapis.com/books/v1/volumes?q=war
 wrzucić do bazy danych wpisy (aktualizując już istniejące)
 
-##NOTES:
-
-uderzajac w rootowy endpoint powinno nam zwrocic liste linków-endpointow 
-do uderzania po kolejne rzeczy ( tutaj potrzebne bd metody HTTP jako hyperlinki
-jako response powinno zwrocic content-type header jako JSON oraz Allow headers
-ktore mowia jakie metody sa dostepne na wybrane linki)
-
-1.
-- musi byc widok ktory pobiera wszystkie ksiazki z tego query
-- musi filtrowac czyli albo bierze wszystkie albo pobiera niektore z:
-        
-        - bazy danych 
-        - wszystko metodą request.GET
-        - czyli zapytania do bazy danych przekazywane z formularza
-         ktore przekazane do widoku beda wyciagac request.GET.data 
-         data to np zastosowane filtry
-
-
-##DO ROZWAZENIA:
-
-- WSGI container
-- CORS requests
-- Rozbić plik settings.py na STXnext i Api
-
 
 
 ##DO ZAPAMIETANIA:
@@ -72,7 +48,7 @@ X
 3. Zrob funkcje w widokach ktora zapisuje wszystkie UNIKALNE ksiazki z nazwą "hobbit" do bazy 
    
 ✔
-4. Napisz testy do pomocniczych funkcji 
+4. Napisz testy do pomocniczych funkcji oraz widoków
    
 ✔
 6. Stwórz bazowy template oraz inne ktore po nim dziedzicza, dodaj do niego messages
@@ -106,3 +82,4 @@ wrzucić do bazy danych wpisy
 
 ### - Deployment:
 13. Wrzuć aplikacje na heroku
+X
