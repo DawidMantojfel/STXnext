@@ -1,5 +1,4 @@
 import requests
-# from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from STXnext.models import Book, Author
 from .utils import convert_date
