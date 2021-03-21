@@ -35,51 +35,51 @@ wrzucić do bazy danych wpisy (aktualizując już istniejące)
 
 ##STEPS:
  ### - models, views, urls, configuration
-0. Skonfiguruj baze danych - SQlite3
+0. Skonfiguruj baze danych - SQlite3 ✔
    
-✔
-1. Zrób modele Autor, Ksiazka:
-✔
 
-2. Napisz zautomatyzowane testy do modeli
+1. Zrób modele Autor, Ksiazka: ✔
 
-X
 
-3. Zrob funkcje w widokach ktora zapisuje wszystkie UNIKALNE ksiazki z nazwą "hobbit" do bazy 
+2. Napisz zautomatyzowane testy do modeli ✔
+
+
+
+3. Zrob funkcje w widokach ktora zapisuje wszystkie UNIKALNE ksiazki z nazwą "hobbit" do bazy  ✔
    
-✔
-4. Napisz testy do pomocniczych funkcji oraz widoków
+
+4. Napisz testy do pomocniczych funkcji oraz widoków ✔
    
-✔
-6. Stwórz bazowy template oraz inne ktore po nim dziedzicza, dodaj do niego messages
+
+6. Stwórz bazowy template oraz inne ktore po nim dziedzicza, dodaj do niego messages ✔
    
-✔
+
 
 ### - Rest api:
-7. Filtrowanie i sortowanie po roku wydania
+7. Filtrowanie i sortowanie po roku wydania ✔
 
-✔
 
-8. Lista książek zadanych autorów
 
-✔
+8. Lista książek zadanych autorów ✔
 
-9. GET /books/<bookId> - wybrana książka 
 
-✔
+
+9. GET /books/<bookId> - wybrana książka ✔
+
+
 
 10. POST /db z body {"q": "war"}
 ściągnąć data set z https://www.googleapis.com/books/v1/volumes?q=war
-wrzucić do bazy danych wpisy 
+wrzucić do bazy danych wpisy ✔
     
-✔
+
 
 ### - Frontend:
 11. Dodanie linkow do przemieszczania sie po aplikacji w html 
-12. dodanie css i stylizacja
-   
-✔
+12. dodanie css i stylizacja ✔
+  
+
 
 ### - Deployment:
-13. Wrzuć aplikacje na heroku
-X
+13. Wrzuć aplikacje na heroku X
+
