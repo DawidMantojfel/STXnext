@@ -42,7 +42,7 @@ def save_books(request, query='Hobbit'):
                     author.books.add(book)
                 messages.success(request, f"Book '{book.title}' by {book_authors} added to database ",fail_silently=True)
         else:
-            messages.warning(request, f' "{book.title}"by {" and ".join(book_authors)} is already in the database',fail_silently=True)
+            messages.warning(request, f' "{book.title}"by {book_authors} is already in the database',fail_silently=True)
     return redirect('home')
 
 
