@@ -10,9 +10,6 @@ class Book(models.Model):
     ratings_count  = models.IntegerField(null=True, blank=True)
     thumbnail      = models.URLField(null=True, blank=True)
 
-    class Meta:
-        ordering = ('published_date',)
-
     def __str__(self):
         return f'title: {self.title} \n' \
                f'date of publication: {self.published_date} \n' \

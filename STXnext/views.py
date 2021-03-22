@@ -7,10 +7,11 @@ from django.contrib import messages
 
 def home_page(request):
     context = {}
-    count_books = Book.objects.all().count()
-    if count_books > 0:
-        id_first = Book.objects.first().id
-        context['count_books'] = [id for id in range(id_first,id_first+count_books)]
+    ids = Book.objects.order_by('id')
+    if len(ids) > 0:
+        id_first = ids[0].id
+        last = ids.reverse()[0].id
+        context['count_books'] = [id for id in range(id_first,last+1)]
     return render(request, 'STXnext/home_page.html', context)
 
 

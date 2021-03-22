@@ -48,19 +48,21 @@ class BookModelTests(TestCase):
         tolkien.books.add(hobbit)
         charles.books.add(hobbit)
 
+    def test_books_ids(self):
+        ids = Book.objects.order_by('id')
+        if len(ids) > 0:
+            id_first = ids[0].id
+            last = ids.reverse()[0].id
+            self.assertEqual(last-id_first,1)
+        else:
+            self.assertEqual(len(ids), 0)
+
     def test_books_exists(self):
         books_count = Book.objects.all().count()
         book_exists = Book.objects.filter(title='Hobbit').exists()
         self.assertEqual(books_count, 2)
         self.assertNotEqual(books_count, 0)
         self.assertTrue(book_exists)
-
-    def test_books_are_ordered_with_date_of_publication_by_default(self):
-        hobbit = Book.objects.get(title='Hobbit')
-        war = Book.objects.get(title='war')
-        first = Book.objects.first()
-        self.assertEqual(first, war)
-        self.assertNotEqual(hobbit, first)
 
     def test_book_have_two_authors(self):
         hobbit = Book.objects.get(title='Hobbit')

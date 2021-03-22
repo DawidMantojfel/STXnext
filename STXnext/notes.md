@@ -81,5 +81,5 @@ wrzucić do bazy danych wpisy ✔
 
 
 ### - Deployment:
-13. Wrzuć aplikacje na heroku X
+13. Wrzuć aplikacje na heroku ✔
 
