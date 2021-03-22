@@ -14,8 +14,6 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = [
-            #to delete
-            'id',
             'authors',
             'title',
             'published_date',
