@@ -5,6 +5,54 @@ from .utils import convert_date, convert_initials
 import requests
 from .views import save_books
 from django.test.client import RequestFactory
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase
+from .api.serializers import BookSerializer, AuthorSerializer
+
+
+class BooksListAPIViewTest(APITestCase):
+
+    BOOKS_LIST_URL = reverse('list_of_hobbit')
+    POST_WAR_BOOKS_URL = reverse('post_war')
+
+    def setUp(self) -> None:
+        today = datetime.date.today()
+        hobbit = Book.objects.create(title='Hobbit',
+                                     published_date=today,
+                                     categories=['fantasy'],
+                                     average_rating=4.5,
+                                     ratings_count=100,
+                                     thumbnail='http://books.google.com/books/content?id=YyXoAAAACAAJ'
+                                               '&printsec=frontcover&img=1&zoom=1&source=gbs_api')
+        war = Book.objects.create(title='war',
+                                  published_date=today,
+                                  categories=['history'],
+                                  average_rating=4,
+                                  ratings_count=10,
+                                  thumbnail="http://books.google.com/books/content?id=sqRHAQAAMAAJ"
+                                           "&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api")
+
+    def test_response_ok(self):
+        response = self.client.get(self.BOOKS_LIST_URL)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_list_of_api_books(self):
+        response = self.client.get(self.BOOKS_LIST_URL)
+        self.assertEqual(len(response.data), 2)
+
+    def test_detail_book(self):
+        hobbit = Book.objects.get(title='Hobbit')
+        response = self.client.get('/GET/books/'+str(hobbit.id))
+        title = response.data['title']
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(title, 'Hobbit')
+
+    def test_posting_war_books(self):
+        response = self.client.get(self.POST_WAR_BOOKS_URL)
+        # CHECK IF WE POSTED BOOKS AFTER HITTING GIVEN API URL
+        self.assertGreater(len(response.data), 2)
 
 
 class ViewTests(TestCase):
@@ -15,12 +63,17 @@ class ViewTests(TestCase):
 
     def test_save_books(self):
         url = 'https://www.googleapis.com/books/v1/volumes?q=Hobbit'
-        request = self.factory.get(path='/save/')
+        request = self.factory.get(reverse('save_hobbit'))
         response = requests.request("GET", url).json()
         num_of_books_from_response = len(response['items'])
         save_books(request)
         num_books_from_database = Book.objects.all().count()
         self.assertEqual(num_books_from_database, num_of_books_from_response)
+
+    def test_redirection_works_after_saving(self):
+        request = self.factory.get(reverse('save_hobbit'))
+        response = save_books(request)
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
 
 
 class BookModelTests(TestCase):

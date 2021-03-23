@@ -1,4 +1,5 @@
 import requests
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from STXnext.models import Book, Author
 from .utils import convert_date
@@ -16,8 +17,9 @@ def home_page(request):
 
 
 def save_books(request, query='Hobbit'):
-    url = f'https://www.googleapis.com/books/v1/volumes?q={query}'
-    response = requests.request("GET", url).json()
+    URL = f'https://www.googleapis.com/books/v1/volumes?q={query}'
+    response = requests.request("GET", URL)
+    response = response.json()
     for result in response['items']:
         book_info = result['volumeInfo']
         title = book_info.get('title')
@@ -44,6 +46,7 @@ def save_books(request, query='Hobbit'):
                 messages.success(request, f"Book '{book.title}' by {book_authors} added to database ",fail_silently=True)
         else:
             messages.warning(request, f' "{book.title}"by {book_authors} is already in the database',fail_silently=True)
+
     return redirect('home')
 
 
