@@ -12,11 +12,13 @@
 <body>
     <div class="flexbox-container">
         <h2 style="font-size: 50px" class="flex-item">Zadanie rekrutacyjne dla STXnext</h2>
-        <a class="flex-item" href="{% url 'save_hobbit' %}">
-            Dodawanie książek z tytułem 'Hobbit' do bazy danych
-        </a>
-        <a class="flex-item" href="{% url 'list_of_hobbit' %}">Lista wszystkich książek z funkcja filtrowania i porządkowania wg daty</a>
-        <a class="flex-item" href="{% url 'post_war' %}">Aktualizowanie bazy danych książkami z tytułem 'War'</a>
+        <form action="{% url 'save_books_to_file' %}" method="post">
+            {% csrf_token %}
+            <label for="query">save books to database</label>
+            <input name="query" class="flex-item" type="text" placeholder="Your Query">
+        </form>
+        <a class="flex-item" href="{% url 'list_of_books' %}">Lista wszystkich książek z funkcja filtrowania i porządkowania wg daty</a>
+        <a class="flex-item" href="#">Aktualizowanie bazy danych książkami z tytułem 'War'</a>
         {% if count_books %}
             <p class="flex-item">Id książki:
             {% for id in count_books %}

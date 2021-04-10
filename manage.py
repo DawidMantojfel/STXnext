@@ -1,7 +1,10 @@
-#!/usr/bin/env python
+#!c:\users\dawid\pycharmprojects\stxnext\venv\scripts\python.exe
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+# from django.conf import settings
+# settings.configure(DEBUG=True)
+
 
 
 def main():

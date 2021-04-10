@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import save_books, home_page
+from .views import home_page, save_books_to_file
 
 urlpatterns = [
     path('', home_page, name='home'),
     path('', include('STXnext.api.urls')),
     path('admin/', admin.site.urls),
-    path('save/', save_books, name='save_hobbit')
+    path('add_to_file/', save_books_to_file, name='save_books_to_file')
 ]

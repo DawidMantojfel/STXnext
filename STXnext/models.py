@@ -3,7 +3,7 @@ from .utils import convert_initials
 
 
 class Book(models.Model):
-    title          = models.CharField(max_length=200)
+    title          = models.CharField(max_length=1000)
     published_date = models.DateField(auto_now_add=False)
     categories     = models.CharField(max_length=300, null=True, blank=True)
     average_rating = models.FloatField(null=True, blank=True)
