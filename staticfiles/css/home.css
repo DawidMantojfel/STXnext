@@ -3,14 +3,14 @@
     margin-right: auto;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
     padding: 40px;
     width: 70%;
 }
 .flex-item{
     width: 80%;
     height: 100px;
-    text-align: center;
+    text-align: left;
     font-size: 20px;
 }

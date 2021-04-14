@@ -20,7 +20,7 @@ def convert_date(published_date):
     # if published date is in day-moth-year format
     else:
         data_result = datetime.strptime(' '.join(date), "%Y %m %d")
-    return data_result
+    return data_result.date()
 
 
 def convert_initials(name):

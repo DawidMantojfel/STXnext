@@ -14,12 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from .views import home_page, save_books_to_file
+from django.urls import include
+from django.views.generic import TemplateView
+from .views import home_page, save_to_file, about
+from django.urls import path
+
 
 urlpatterns = [
     path('', home_page, name='home'),
     path('', include('STXnext.api.urls')),
     path('admin/', admin.site.urls),
-    path('add_to_file/', save_books_to_file, name='save_books_to_file')
+    path('add_to_file/', save_to_file, name='save_books_to_file'),
+    path('about/', about, name='about')
 ]

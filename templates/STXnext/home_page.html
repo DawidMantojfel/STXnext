@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Recruitment Task</title>
     <link href="{% static '/css/home.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -11,14 +11,20 @@
 </head>
 <body>
     <div class="flexbox-container">
-        <h2 style="font-size: 50px" class="flex-item">Zadanie rekrutacyjne dla STXnext</h2>
-        <form action="{% url 'save_books_to_file' %}" method="post">
-            {% csrf_token %}
-            <label for="query">save books to database</label>
-            <input name="query" class="flex-item" type="text" placeholder="Your Query">
+        <h2 style="font-size: 55px" class="flex-item">Recruitment Task for STXnext</h2>
+        <form class="flex-item " name="save_to_file" action="{% url 'save_books_to_file' %}" method="get">
+            <label class="sr-only" for="query">save books to file</label>
+            <input name="query" class="form-control form-control-sm" id="query"  type="text" placeholder="Your Query" required>
+            <button class="btn btn-primary" type="submit">save to file</button>
         </form>
+        {% if not_empty %}
+        <form class="flex-item " action="{% url 'post_books' %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-danger" id="btn" type="submit">post request books from file</button>
+        </form>
+        {% endif %}
         <a class="flex-item" href="{% url 'list_of_books' %}">Lista wszystkich książek z funkcja filtrowania i porządkowania wg daty</a>
-        <a class="flex-item" href="#">Aktualizowanie bazy danych książkami z tytułem 'War'</a>
+
         {% if count_books %}
             <p class="flex-item">Id książki:
             {% for id in count_books %}
@@ -26,6 +32,8 @@
             {% endfor %}
             </p>
         {% endif %}
+        <a style="font-size: 15px" class="flex-item" href="{% url 'about' %}">*recruitment task content*</a>
+
     </div>
     <div class="message">
         {% include 'STXnext/messages.html' %}

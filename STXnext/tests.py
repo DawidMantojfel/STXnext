@@ -1,21 +1,21 @@
+import os
+
 from django.test import TestCase
 from .models import Book, Author
+from .views import save_to_file
 import datetime
 from .utils import convert_date, convert_initials
 import requests
-from .views import save_books
 from django.test.client import RequestFactory
 from django.urls import reverse
 from rest_framework import status
-from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
-from .api.serializers import BookSerializer, AuthorSerializer
 
 
 class BooksListAPIViewTest(APITestCase):
 
-    BOOKS_LIST_URL = reverse('list_of_hobbit')
-    POST_WAR_BOOKS_URL = reverse('post_war')
+    BOOKS_LIST_URL = reverse('list_of_books')
+    POST_BOOKS = reverse('post_books')
 
     def setUp(self) -> None:
         today = datetime.date.today()
@@ -34,6 +34,8 @@ class BooksListAPIViewTest(APITestCase):
                                   thumbnail="http://books.google.com/books/content?id=sqRHAQAAMAAJ"
                                            "&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api")
 
+        books = [war, hobbit]
+
     def test_response_ok(self):
         response = self.client.get(self.BOOKS_LIST_URL)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -49,31 +51,27 @@ class BooksListAPIViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(title, 'Hobbit')
 
-    def test_posting_war_books(self):
-        response = self.client.get(self.POST_WAR_BOOKS_URL)
+    def test_posting_books(self):
+        response = self.client.get(self.POST_BOOKS)
         # CHECK IF WE POSTED BOOKS AFTER HITTING GIVEN API URL
         self.assertGreater(len(response.data), 2)
 
 
 class ViewTests(TestCase):
+    SAVE_TO_FILE_URL = reverse('save_books_to_file')
 
     def setUp(self):
         """RequestFactory kreuje dummy request"""
         self.factory = RequestFactory()
 
-    def test_save_books(self):
-        url = 'https://www.googleapis.com/books/v1/volumes?q=Hobbit'
-        request = self.factory.get(reverse('save_hobbit'))
-        response = requests.request("GET", url).json()
-        num_of_books_from_response = len(response['items'])
-        save_books(request)
-        num_books_from_database = Book.objects.all().count()
-        self.assertEqual(num_books_from_database, num_of_books_from_response)
+    def test_save_to_file(self):
+        data = [self]
+        file = 'STXnext/json_books.json'
+        request = self.factory.get(self.SAVE_TO_FILE_URL)
+        request.data = {'query': 'hobbit'}
+        self.assertNotEqual(os.stat(file).st_size,0)
 
-    def test_redirection_works_after_saving(self):
-        request = self.factory.get(reverse('save_hobbit'))
-        response = save_books(request)
-        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+
 
 
 class BookModelTests(TestCase):
@@ -153,11 +151,6 @@ class AuthorModelTests(TestCase):
         self.assertEqual(number_of_books, 2)
         self.assertNotEqual(number_of_books, 1)
 
-    def test_author_name_was_converted_to_initials(self):
-        tolkien = Author(name='John Ronald Reuel Tolkien')
-        tolkien.name_initials()
-        self.assertEqual(tolkien.name, 'J. R. R. Tolkien')
-
 
 class HelperFunctionsTests(TestCase):
 
@@ -173,8 +166,4 @@ class HelperFunctionsTests(TestCase):
         self.assertEqual(y_converted, y)
         self.assertIsNone(convert_date(None))
 
-    def test_convert_initials_function(self):
-        full_name = 'Corey Olsen'
-        converted = convert_initials(full_name)
-        self.assertEqual(converted, 'C. Olsen')
 

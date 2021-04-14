@@ -1,11 +1,9 @@
-from rest_framework.routers import DefaultRouter
 from django.urls import path
-from .views import BooksListAPIView, BookDetailAPIView
-#
-# router = DefaultRouter()
-# router.register(r'post', DeleteBooksAPIVIew, basename='post')
+from .api_views import BooksListAPIView, BookDetailAPIView, BookPostAPIView
+
 
 urlpatterns = [
     path('GET/books/', BooksListAPIView.as_view(), name='list_of_books'),
     path('GET/books/<int:id>', BookDetailAPIView.as_view(), name='detail'),
+    path('POST/books/', BookPostAPIView.as_view(), name='post_books'),
 ]

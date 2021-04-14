@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>about</title>
+</head>
+<body>
+<h1 id="tresc-">TRESC:</h1>
+<h2 id="na-podstawie-danych-znajduj-cej-si-na-stronie-https-www-googleapis-com-books-v1-volumes-q-hobbit-zaprojektowa-i-stworzy-aplikacj-w-wybranym-przez-siebie-frameworku-kt-ra-b-dzie-posiada-a-proste-rest-api-">Na podstawie danych znajdującej się na stronie <a href="https://www.googleapis.com/books/v1/volumes?q=Hobbit">https://www.googleapis.com/books/v1/volumes?q=Hobbit</a> zaprojektować i stworzyć aplikację w wybranym przez siebie frameworku, która będzie posiadała proste REST API:</h2>
+<ol>
+<li><p>GET /books - lista wszystkich książek (widok powinien pozwalać na filtrowanie i sortowanie po roku przykład : /books?published_date=1995, /books?sort=-published_date)</p>
+</li>
+<li><p>GET /books?author=&quot;Jan Kowalski&quot;&amp;author=&quot;Anna Kowalska&quot; - lista książek zadanych autorów</p>
+</li>
+<li><p>POST /db z body {&quot;q&quot;: &quot;war&quot;}
+ściągnąć data set z <a href="https://www.googleapis.com/books/v1/volumes?q=war">https://www.googleapis.com/books/v1/volumes?q=war</a>
+wrzucić do bazy danych wpisy (aktualizując już istniejące)</p>
+</li>
+<li><p>GET /books/<bookId> - wybrana książka </p>
+<p> {</p>
+<pre><code><span class="hljs-string">"title"</span>: <span class="hljs-string">"Hobbit czyli Tam i z powrotem"</span>,
+
+<span class="hljs-string">"authors"</span>: [<span class="hljs-string">"J. R. R. Tolkien"</span>],
+
+<span class="hljs-string">"published_date"</span>: <span class="hljs-string">"2004"</span>,
+
+<span class="hljs-string">"categories"</span>:
+ [
+   <span class="hljs-string">"Baggins, Bilbo (Fictitious character)"</span>
+ ],
+
+<span class="hljs-string">"average_rating"</span>: <span class="hljs-number">5</span>,
+
+<span class="hljs-string">"ratings_count"</span>: <span class="hljs-number">2</span>,
+
+<span class="hljs-string">"thumbnail"</span>:
+   <span class="hljs-string">"http://books.google.com/books/content?id=YyXoAAAACAAJ&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;source=gbs_api"</span>,
+</code></pre><p>   }</p>
+</li>
+</ol>
+
+</body>
+</html>
