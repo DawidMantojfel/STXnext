@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include
 from django.views.generic import TemplateView
-from .views import home_page, save_to_file, about
+from .views import home_page, save_to_file
 from django.urls import path
 
 
@@ -25,5 +25,4 @@ urlpatterns = [
     path('', include('STXnext.api.urls')),
     path('admin/', admin.site.urls),
     path('add_to_file/', save_to_file, name='save_books_to_file'),
-    path('about/', about, name='about')
 ]

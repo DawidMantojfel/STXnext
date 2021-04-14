@@ -24,13 +24,8 @@ def home_page(request):
             messages.warning(request, "More than 200 records. Database reset")
             return redirect(reverse_url('home'))
     not_empty = os.stat(FILE).st_size != 0
-    print(not_empty)
     context['not_empty'] = not_empty
     return render(request, 'STXnext/home_page.html', context)
-
-
-def about(request):
-    return render(request, 'STXnext/about.html')
 
 
 def save_to_file(request):
